@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Your Sentive Data is safe based on this OpenID authetication!";
+}
+<div class="header">
+    <h4 style="text-align:center">@ViewData["Title"]</h4>
+</div>
+
+@using Microsoft.AspNetCore.Authentication
+
+<h5 class="header" style="text-align:center">Claims</h5>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
+
+<h5 class="header" style="text-align:center">Properties</h5>
+
+<dl>
+    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+    {
+        <dt>@prop.Key</dt>
+        <dd>@prop.Value</dd>
+    }
+</dl>
+<h5 class="header" style="text-align:center">Data from API Call</h5>
+<table class="table table-striped" id="myTable">
+    <thead class="header" style="text-align:center">
+        <tr>
+            <td>Type</td>
+            <td>Value</td>
+        </tr>
+    </thead>
+</table>
+@*<button id="call-api-button" type="button" class="btn btn-primary" style="font-weight: bold;border:none;" onclick="CallAPI()">Call API</button>*@
+@section Scripts {
+    <script type="text/javascript">$('#myTable').DataTable({
+        paging: false,
+        searching: false,
+        ajax: {
+            url: '/Home/CallAPI',
+            dataSrc: '',
+
+        },
+        columns: [
+            { data: 'type' },
+            { data: 'value' }
+        ]
+    });</script>
+}
