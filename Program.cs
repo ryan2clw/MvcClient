@@ -28,7 +28,7 @@ namespace MvcClient
                         options.Limits.MinResponseDataRate =
                         new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
 #if DEBUG
-                        options.Listen(IPAddress.Any, 5002); // non-secure
+                        options.Listen(IPAddress.Any, 5001); // non-secure
 #else
                         options.Listen(IPAddress.Any, 5001, listenOptions => {
                            listenOptions.UseHttps("/home/dotnetuser/.ssh/seniordevops.pfx", "T*V2s59WNEc8x");
