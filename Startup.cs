@@ -46,7 +46,11 @@ namespace MvcClient
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
+                #if DEBUG
                 options.Authority = "http://localhost:5002";
+                #else
+                options.Authority = "http://3.17.59.136:5002";
+                #endif
                 options.RequireHttpsMetadata = false;
                 options.SaveTokens = true;
                 options.SignInScheme = "Cookies";
@@ -73,9 +77,8 @@ namespace MvcClient
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
-
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
@@ -84,7 +87,7 @@ namespace MvcClient
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "/MvcClient/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

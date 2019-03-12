@@ -40,9 +40,6 @@
 </table>
 @section Scripts {
 <script type="text/javascript">
-    @*function callAPI(){
-        var rows = $('#myTable').find("tr");
-        if (rows.length == 1){*@
     function callAPI(){
         $('#myTable').dataTable().api().destroy();
         $('#myTable').DataTable({
@@ -72,34 +69,5 @@
                 ]}
             );
     }
-
-    @*var myTable = $('#myTable').DataTable({
-        paging: false,
-        searching: false,
-        ajax: {
-            url: '/Home/CallAPI',
-            dataSrc: function (json) {
-                var return_data = new Array();
-                for(var i=0;i< json.length; i++){
-                    var adjustedValue = json[i].value;
-                    var myType = json[i].type;
-                    if ((myType == 'auth_time'|| myType == 'exp')|| myType == 'nbf'){
-                        adjustedValue = new Date(adjustedValue * 1e3).toISOString();
-                    }
-                    return_data.push({
-                      'type': myType,
-                      'value'  : adjustedValue,
-                    })
-                  }
-                  return return_data;
-                }
-            },
-            columns: [
-                { data: 'type' },
-                { data: 'value' }
-            ]}
-        );*@
-        @*}
-    }*@
 </script>
 }
