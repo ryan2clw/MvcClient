@@ -31,7 +31,8 @@ namespace MvcClient
                         options.Listen(IPAddress.Any, 5001); // non-secure
 #else
                         options.Listen(IPAddress.Any, 5001, listenOptions => {
-                           listenOptions.UseHttps("/home/dotnetuser/.ssh/seniordevops.pfx", "T*V2s59WNEc8x");
+
+                           listenOptions.UseHttps("/Users/ryandines/.ssh/seniordevops.pfx", "T*V2s59WNEc8x");
                         });
 #endif
                     })

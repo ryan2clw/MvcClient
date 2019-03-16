@@ -46,23 +46,23 @@ namespace MvcClient
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
-                #if DEBUG
+#if DEBUG
                 options.Authority = "http://localhost:5002";
-                #else
-                options.Authority = "http://3.17.59.136:5002";
-                #endif
-                options.RequireHttpsMetadata = false;
+#else
+                options.Authority = "https://localhost:5002";
+                options.RequireHttpsMetadata = true;
+
+#endif
                 options.SaveTokens = true;
                 options.SignInScheme = "Cookies";
                 options.ClientId = "mvc";
                 options.ClientSecret = "secret";
                 options.ResponseType = "code id_token";
                 options.GetClaimsFromUserInfoEndpoint = true;
-
                 options.Scope.Add("api1");
                 options.Scope.Add("offline_access");
                 options.ClaimActions.MapJsonKey("website", "website");
-                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +76,7 @@ namespace MvcClient
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                // app.UseHsts();
             }
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -86,7 +86,16 @@ namespace MvcClient
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "/MvcClient/{controller=Home}/{action=Index}/{id?}");
+                    template: "/MvcClient/{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                "root",
+                "/",
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "Index"
+                });
             });
         }
     }

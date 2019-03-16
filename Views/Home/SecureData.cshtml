@@ -45,8 +45,13 @@
         $('#myTable').DataTable({
             paging: false,
             searching: false,
+            drawCallback: function (settings) {
+                // Here the response
+                var response = settings.json;
+                console.log(response);
+            },
             ajax: {
-                url: '/Home/CallAPI',
+                url: '/MvcClient/Home/CallAPI',
                 dataSrc: function (json) {
                     var return_data = new Array();
                     for(var i=0;i< json.length; i++){
