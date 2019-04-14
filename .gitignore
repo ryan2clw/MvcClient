@@ -33,3 +33,4 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 identityserver4_log.txt
+MvcClient_log.txt

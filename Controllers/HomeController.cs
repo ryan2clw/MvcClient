@@ -39,7 +39,7 @@ namespace MvcClient.Controllers
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                string content = await client.GetStringAsync("http://localhost:5004/identity");
+                string content = await client.GetStringAsync("http://127.0.0.1:5004/identity");
                 return new JsonResult(JArray.Parse(content));
             }
 

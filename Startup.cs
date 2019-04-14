@@ -48,9 +48,10 @@ namespace MvcClient
             {
 #if DEBUG
                 options.Authority = "http://localhost:5002";
+                options.RequireHttpsMetadata = false;
 #else
                 options.Authority = "https://localhost:5002";
-                options.RequireHttpsMetadata = true;
+                options.RequireHttpsMetadata = false;
 
 #endif
                 options.SaveTokens = true;
